@@ -24,7 +24,7 @@ namespace API.Controllers
 
             if(user != null) 
             {
-                return Ok(user); /// Justa a test for git
+                return Ok(user);
             }
             else
             {
