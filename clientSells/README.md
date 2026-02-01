@@ -77,9 +77,22 @@ For more information on using the Angular CLI, including detailed command refere
 - dotnet ef database drop
 
 ### Security JWTS
+
 - System.IdentityModel.Tokens.Jwt
 - Microsoft.IdentityModel.Tokens
 
-###
+### schematics
 
-###
+- Add into schematics configuration to create components
+
+### Dropdown - focus
+
+- https://daisyui.com/components/dropdown/
+- Method 3. CSS focus - L50
+<div class="dropdown">
+  <div tabindex="0" role="button" class="btn m-1">Click</div>
+  <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+    <li><a>Item 1</a></li>
+    <li><a>Item 2</a></li>
+  </ul>
+</div>
