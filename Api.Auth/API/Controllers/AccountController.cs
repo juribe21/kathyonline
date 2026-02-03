@@ -41,6 +41,10 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> login(LoginDto login)
         {
+            // TO DO: 
+            // Enviar un flag que indique si es (Usuario) Admin = true  y Cliente = false 
+            // para acceder a la administracion - Revisar UserDto y User properties
+
             var appUser = await context.AppUsers.SingleOrDefaultAsync(x => x.Email == login.Email);
             if (appUser == null) return Unauthorized("Invalid credentials");
 

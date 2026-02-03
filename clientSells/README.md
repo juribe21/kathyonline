@@ -58,6 +58,12 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
+### **********************\*\*\*\***********************\*\*\*\***********************\*\*\*\***********************
+
+## Compact Folder
+
+- Settings/compact → unselect compact folders
+
 ### Tailwind CSS dev
 
 - https://tailwindcss.com/docs/installation/using-postcss
@@ -96,3 +102,21 @@ For more information on using the Angular CLI, including detailed command refere
     <li><a>Item 2</a></li>
   </ul>
 </div>
+
+### Select - Fill and use select - Seccion 5 - Lesson 56
+
+  <select name="SelCategoria" id="selCategoria" class="select w-full">
+      <option value="Selected">Seleecion</option>
+      @for(member of  members(); track $index){
+        <option value="{{member.id}}">{{member.name}}</option>
+      }
+  </select>
+
+## toast
+
+- https://daisyui.com/components/toast/
+- Check toast-service.ts
+
+## **_ Check lesso 68 App initialization _**
+
+- init service
