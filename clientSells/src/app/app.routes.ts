@@ -11,6 +11,9 @@ import { AdminProducts } from '../features/Admin/admin-products/admin-products';
 import { Categorias } from '../features/Admin/categorias/categorias';
 import { PuntosEntrega } from '../features/Admin/puntos-entrega/puntos-entrega';
 import { authGuard } from '../core/guards/auth-guard';
+import { TestErrors } from '../features/test-errors/test-errors';
+import { NotFound } from '../shared/not-found/not-found';
+import { ServerError } from '../shared/server-error/server-error';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -28,6 +31,9 @@ export const routes: Routes = [
     ],
   },
 
+  { path: 'errors', component: TestErrors },
+  { path: 'server-error', component: ServerError },
+
   /* Administracion */
   { path: 'users', component: UserList },
   { path: 'users/:id', component: UserDetailed },
@@ -37,5 +43,5 @@ export const routes: Routes = [
   { path: 'admincategorias', component: Categorias },
   { path: 'adminentrega', component: PuntosEntrega },
 
-  { path: '**', component: Home },
+  { path: '**', component: NotFound },
 ];

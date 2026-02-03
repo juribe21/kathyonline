@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Error\" />
+    <Folder Include="Middleware\" />
   </ItemGroup>
 
 </Project>
