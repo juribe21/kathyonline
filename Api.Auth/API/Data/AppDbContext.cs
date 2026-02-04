@@ -11,4 +11,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Client> Clients { get; set; }
     public DbSet<Gender> Genders { get; set; }
     public DbSet<UserType> UserTypes { get; set; }
+    public DbSet<Photo> Photos { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Categoria> Categorias { get; set; }
 }

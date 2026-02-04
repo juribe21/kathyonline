@@ -1,0 +1,92 @@
+[
+    {
+        "Id": "Product-1",
+        "ProductName": "Bata",
+        "Cantidad": 5,
+        "Precio": 35,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "enfermeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-2",
+        "ProductName": "Anillo",
+        "Cantidad": 6,
+        "Precio": 26,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "joyeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-3",
+        "ProductName": "zapatos",
+        "Cantidad": 5,
+        "Precio": 23,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "enfermeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-4",
+        "ProductName": "Pulsera",
+        "Cantidad": 2,
+        "Precio": 10,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "joyeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-5",
+        "ProductName": "Oximetro",
+        "Cantidad": 3,
+        "Precio": 3,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "enfermeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-6",
+        "ProductName": "Esclava",
+        "Cantidad": 1,
+        "Precio": 12,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "joyeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-7",
+        "ProductName": "Estetoscopio",
+        "Cantidad": 5,
+        "Precio": 52,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "enfermeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-8",
+        "ProductName": "dije",
+        "Cantidad": 51,
+        "Precio": 3,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "joyeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-9",
+        "ProductName": "Presion",
+        "Cantidad": 6,
+        "Precio": 36,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "enfermeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    },
+    {
+        "Id": "Product-10",
+        "ProductName": "cadena",
+        "Cantidad": 3,
+        "Precio": 25,
+        "Description": "Sunt esse aliqua ullamco in incididunt consequat commodo. Nisi ad esse elit ipsum commodo fugiat est ad. Incididunt nostrud incididunt nostrud sit excepteur occaecat.\r\n",
+        "CategoriaId": "joyeria",
+        "ProductImageUrl": "https://randomuser.me/api/portraits/women/54.jpg"
+    }
+]
