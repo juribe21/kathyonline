@@ -16,6 +16,9 @@ export class Nav {
   private router = inject(Router);
   private toast = inject(ToastService);
 
+  protected catE = signal<string>('e');
+  protected catJ = signal<string>('j');
+
   login() {
     this.accountService.login(this.creds).subscribe({
       next: () => {

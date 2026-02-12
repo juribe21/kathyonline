@@ -1,1 +1,55 @@
-<p>product-detailed works!</p>
+@if (product$ | async; as product) {
+<div class="flex gap-6">
+  <div class=" card bg-base-100 flex flex-col h-[85vh] w-3/16">
+    <img src="{{product.productImageUrl || '/user.png'}}" alt="iamge of member"
+      class="rounded-4xl mx-10 mt-3 object-cover">
+    <div class="card-body">
+      <div class="flex flex-col items-center">
+        <div class="flex text-2xl text-primary">
+          {{product.productName}}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="flex flex-col items-center">
+          <div class="text-md">
+            En existencia: {{product.cantidad}}
+          </div>
+        </div>
+        <div class="divider"></div>
+        <ul class="menu rounded-box w-full text-xl">
+          <li><a routerLink="foto" routerLinkActive="text-primary text-sm">Foto</a></li>
+          <li><a routerLink="descripcion" routerLinkActive="text-primary text-sm">Descripcion</a></li>
+          <li><a routerLink="pedido" routerLinkActive="text-primary text-sm">Carrito</a></li>
+        </ul>
+
+      </div>
+
+      <div class="card-actions justify-between gap-2 px-2 mb-3">
+        <button (click)="Cancel()" class="btn btn-info flex-2">Atras</button>
+        <button (click)="AgregarCarrito()" class="btn btn-primary flex-4 text-sm">Comprar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 w-7/8 p-6">
+    <div class="flex justify-between items-center">
+      <h3 class="card-title text-3xl text-primary">{{productName()}}</h3>
+      @if(isCurrentUser()){
+      <div>boton para modificaciones</div>
+      <!-- <button (click)="adminService.editMode.set(!adminService.editMode())" class="btn btn-outline-info btn-primary">
+        {{adminService.editMode()? 'Cancel':'Edit'}}
+      </button> -->
+      }
+    </div>
+
+    <div class="divider"></div>
+    <div>
+      <router-outlet />
+    </div>
+  </div>
+
+</div>
+} @else {
+<div>Member not found</div>
+}

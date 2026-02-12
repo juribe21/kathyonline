@@ -18,6 +18,7 @@ public class ClientRepository(AppDbContext context) : IClientRepository
 
      public async Task<IReadOnlyList<Client>> GetClientsAsync()
     {
+
         return await context.Clients
             .ToListAsync();
     }

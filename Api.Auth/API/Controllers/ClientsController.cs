@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     [Authorize]
-    public class UsersController(IClientRepository clientRepository) : BaseApiController
+    public class ClientsController(IClientRepository clientRepository) : BaseApiController
     {
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<AppUser>>> GetUsers()
@@ -45,6 +45,12 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<Photo>>> GetClientPhotos(string id)
         {
             return Ok(await clientRepository.GetPhotosFromClientsAsync(id));
+        }
+
+        [HttpGet("getProducts/{id}")]
+        public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts(string id)
+        {
+            return Ok(await clientRepository.GetProductsFromClientsAsync(id));
         }
 
         [HttpPut]

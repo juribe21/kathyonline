@@ -24,8 +24,8 @@ export const routes: Routes = [
     children: [
       /* Clientes */
       { path: 'products', component: ProductList },
-      { path: 'products/joyeria', component: ProductList },
-      { path: 'products/enfermeria', component: ProductList },
+      { path: 'joyeria/:cat', component: ProductList },
+      { path: 'enfermeria/:cat', component: ProductList },
       { path: 'products/:id', component: ProductDetailed },
       { path: 'messages', component: Messages },
     ],

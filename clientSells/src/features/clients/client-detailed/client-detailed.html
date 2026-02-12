@@ -1,1 +1,55 @@
-<p>client-detailed works!</p>
+@if(client$ | async; as client){
+<div class="flex gap-6">
+  <div class=" card bg-base-100 flex flex-col h-[85vh] w-3/16">
+    <img src="{{client.imageUrl || '/user.png'}}" alt="iamge of member" class="rounded-4xl mx-10 mt-3 object-cover">
+    <div class="card-body">
+      <div class="flex flex-col items-center">
+        <div class="flex text-2xl text-primary">
+          {{client.name}}, {{client.lastName }}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <!-- <div class="flex flex-col items-center">
+          <div class="text-sm">
+            {{client.city}}, {{client.country}}
+          </div>
+        </div>
+        <div class="divider"></div>-->
+        <ul class="menu rounded-box w-full text-xl">
+          <li><a routerLink="profile" routerLinkActive="text-primary">Perfil</a></li>
+          <li><a routerLink="messages" routerLinkActive="text-primary">Mensajes</a></li>
+          <li><a routerLink="compras" routerLinkActive="text-primary">Compras</a></li>
+          <li><a routerLink="carrito" routerLinkActive="text-primary">Carrito</a></li>
+        </ul>
+
+      </div>
+
+      <div class="card-actions justify-between gap-2 px-2 mb-3">
+        <button class="btn btn-info flex-2">Atras</button>
+        <button class="btn btn-primary flex-4 text-sm">Enviar Mensaje</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 w-7/8 p-6">
+    <div class="flex justify-between items-center">
+      <h3 class="card-title text-3xl text-primary">{{title()}}</h3>
+      @if(isCurrentUser()){
+      <div>boton para modificaciones</div>
+      <!-- <button (click)="adminService.editMode.set(!adminService.editMode())" class="btn btn-outline-info btn-primary">
+        {{adminService.editMode()? 'Cancel':'Edit'}}
+      </button> -->
+      }
+    </div>
+
+    <div class="divider"></div>
+    <div>
+      <router-outlet />
+    </div>
+  </div>
+
+</div>
+} @else {
+<div>Member not found</div>
+}
