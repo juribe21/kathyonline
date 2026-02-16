@@ -196,6 +196,32 @@ namespace API.Data.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("API.Entities.ProductPicture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductPicture");
+                });
+
             modelBuilder.Entity("API.Entities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -268,6 +294,17 @@ namespace API.Data.Migrations
                     b.Navigation("Categoria");
                 });
 
+            modelBuilder.Entity("API.Entities.ProductPicture", b =>
+                {
+                    b.HasOne("API.Entities.Product", "Product")
+                        .WithMany("ProductPictures")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
                     b.Navigation("Client")
@@ -282,6 +319,11 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Client", b =>
                 {
                     b.Navigation("Photos");
+                });
+
+            modelBuilder.Entity("API.Entities.Product", b =>
+                {
+                    b.Navigation("ProductPictures");
                 });
 #pragma warning restore 612, 618
         }

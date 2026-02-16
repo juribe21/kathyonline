@@ -19,5 +19,8 @@ namespace API.Entities
         [JsonIgnore]
         public Categoria Categoria { get; set; } = null!;
         public string CategoriaId { get; set; } = null!;
+
+        [JsonIgnore]
+        public List<ProductPicture> ProductPictures { get; set; } = [];
     }
 }

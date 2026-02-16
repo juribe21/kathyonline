@@ -1,12 +1,13 @@
-@if(client$ | async; as client){
+@if(client(); as client){
 <div class="flex gap-6">
   <div class=" card bg-base-100 flex flex-col h-[85vh] w-3/16">
     <img src="{{client.imageUrl || '/user.png'}}" alt="iamge of member" class="rounded-4xl mx-10 mt-3 object-cover">
     <div class="card-body">
       <div class="flex flex-col items-center">
         <div class="flex text-2xl text-primary">
-          {{client.name}}, {{client.lastName }}
+          {{client.name}}, {{client.lastName }} - {{client.dateOfBirth | age}}
         </div>
+
       </div>
 
       <div class="card-body">
@@ -16,7 +17,7 @@
           </div>
         </div>
         <div class="divider"></div>-->
-        <ul class="menu rounded-box w-full text-xl">
+        <ul class="menu rounded-box w-full text-sm">
           <li><a routerLink="profile" routerLinkActive="text-primary">Perfil</a></li>
           <li><a routerLink="messages" routerLinkActive="text-primary">Mensajes</a></li>
           <li><a routerLink="compras" routerLinkActive="text-primary">Compras</a></li>

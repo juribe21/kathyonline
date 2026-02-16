@@ -37,5 +37,11 @@ namespace API.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet("{id}/photos")]
+        public async Task<ActionResult<IReadOnlyList<ProductPicture>>> GetPreviosPurchasedProducts(string id)
+        {
+            return Ok(await productRepository.GetPreviosPurchasedProducts(id));
+        }
     }
 }

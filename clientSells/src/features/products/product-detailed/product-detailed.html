@@ -1,4 +1,4 @@
-@if (product$ | async; as product) {
+@if (product(); as product) {
 <div class="flex gap-6">
   <div class=" card bg-base-100 flex flex-col h-[85vh] w-3/16">
     <img src="{{product.productImageUrl || '/user.png'}}" alt="iamge of member"
@@ -17,10 +17,10 @@
           </div>
         </div>
         <div class="divider"></div>
-        <ul class="menu rounded-box w-full text-xl">
-          <li><a routerLink="foto" routerLinkActive="text-primary text-sm">Foto</a></li>
-          <li><a routerLink="descripcion" routerLinkActive="text-primary text-sm">Descripcion</a></li>
-          <li><a routerLink="pedido" routerLinkActive="text-primary text-sm">Carrito</a></li>
+        <ul class="menu rounded-box w-full text-sm">
+          <li><a routerLink="foto" routerLinkActive="text-primary">Foto</a></li>
+          <li><a routerLink="descripcion" routerLinkActive="text-primary">Descripcion</a></li>
+          <li><a routerLink="carrito" routerLinkActive="text-primary">Carrito</a></li>
         </ul>
 
       </div>

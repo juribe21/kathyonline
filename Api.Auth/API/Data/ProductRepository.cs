@@ -25,9 +25,7 @@ namespace API.Data
                     cat = "joyeria";
                     return await context.Products.Where(x => x.CategoriaId == cat).ToListAsync();
                 }
-
-            }
-            
+            }            
         }
 
         public async Task<Product?> GetProductByIdAsync(string id)
@@ -43,6 +41,15 @@ namespace API.Data
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;
+        }
+
+       
+        public async Task<IReadOnlyList<ProductPicture>> GetPreviosPurchasedProducts(string id)
+        {
+            return await context.Products
+                .Where(x => x.Id == id)
+                .SelectMany(x => x.ProductPictures)
+                .ToListAsync();
         }
     }
 }
