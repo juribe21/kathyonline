@@ -21,11 +21,14 @@
         [routerLinkActiveOptions]="{exact: true}">Enfermeria</a>
       <a routerLink="/messages" routerLinkActive="text-accent">Mensajes</a>
       }
+
+
+      <!-- if user es Admin -->
+      @if (accountService.adminUser()) {
       <a routerLink="/errors" routerLinkActive="text-accent">Errors</a>
 
-
       <div class="dropdown dropdown-center">
-        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 cursor-pointer">
+        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 mb-3 cursor-pointer">
           <a>Entrega</a>
         </div>
         <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-45 p-2 shadow-sm">
@@ -37,7 +40,7 @@
       </div>
 
       <div class="dropdown dropdown-center">
-        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 cursor-pointer">
+        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 mb-3 cursor-pointer">
           <a>Categorias</a>
         </div>
         <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-38 p-2 shadow-sm">
@@ -48,7 +51,7 @@
       </div>
 
       <div class="dropdown dropdown-center">
-        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 cursor-pointer">
+        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 mb-3 cursor-pointer">
           <a>Admin</a>
         </div>
         <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-38 p-2 shadow-sm">
@@ -59,14 +62,20 @@
           <li><a routerLink="/adminentrega">Puntos entrega</a></li>
         </ul>
       </div>
-
+      }
 
     </nav>
-    <div class="flex align-middle ml-auto gap-3">
 
+    @if (busyService.busyRequestCount() > 0 ) {
+    <span class="loading loading-spinner text-accent"></span>
+    }
+
+    <div class="flex align-middle ml-auto gap-3">
+      @if(accountService.currentUser(); as user){
+      <!-- Seleccion de tema -->
       <div class="dropdown mr-5 dropdown-end">
         <button tabindex="1" class="flex flex-col justify-center align-middle
-         text-white cursor-pointer uppercase text-xs">
+                 text-white cursor-pointer uppercase text-xs">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="size-6 flex self-center">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -76,24 +85,26 @@
         </button>
         <ul tabindex="1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52">
           @for (theme of themes; track $index) {
-            <li (click)="handleSelectedTheme(theme)">
-              <a>{{theme}}</a>
-            </li>
+          <li (click)="handleSelectedTheme(theme)">
+            <a>{{theme}}</a>
+          </li>
           }
         </ul>
       </div>
 
-      @if(accountService.currentUser(); as user){
+      <!-- Edit y logout -->
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="flex items-center text-white text-xl gap-3 cursor-pointer">
           <img [src]="user?.imageUrl || '/user.png'" alt="user" class="w-8 h-8 rounded-full">
           <span class="text-md">{{user.name}}</span>
         </div>
         <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-          <li><a>Edit profile</a></li>
+          <li><a routerLink="/clientes/{{user.id}}">Mi perfil</a></li>
           <li><a (click)="logout()">logout</a></li>
         </ul>
       </div>
+
+      <!-- login -->
       } @else {
       <form #loginForm="ngForm" (ngSubmit)="login()" class="flex items-center gap-3">
         <input [(ngModel)]="creds.email" name="email" type="text" class="input" placeholder="Email">

@@ -4,6 +4,7 @@ export type User = {
   email: string;
   token: string;
   imageUrl?: string;
+  userTypeId: number;
 };
 
 export type LoginUser = {

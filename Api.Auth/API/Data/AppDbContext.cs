@@ -14,4 +14,6 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Photo> Photos { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
+    public DbSet<Venta> Ventas { get; set; }
+    public DbSet<DetalleVenta> DetalleVentas { get; set; }
 }

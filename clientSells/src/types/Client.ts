@@ -12,4 +12,14 @@ export type Client = {
   city: string;
   country: string;
   imageUrl?: string;
-}
+};
+
+export type EditableClient = {
+  clientIdToUpdate: string;
+  name: string;
+  lastName: string;
+  email: string;
+  telefono: string;
+  description?: string;
+  isAdmin: boolean;
+};

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { AccountService } from './account-service';
-import { Client } from '../../types/Client';
+import { Client, EditableClient } from '../../types/Client';
+import { tap } from 'rxjs';
 
 /* ************************ Service for Admin operations *************************** */
 
@@ -13,6 +14,8 @@ export class AdminService {
   private http = inject(HttpClient);
   private accountService = inject(AccountService);
   private baseUrl = environment.apiUrl;
+  editMode = signal(false);
+  client = signal<Client | null>(null);
 
   /* *********************** CLIENTS ********************************** */
   getClients() {
@@ -20,7 +23,16 @@ export class AdminService {
   }
 
   getClient(id: string) {
-    return this.http.get<Client>(this.baseUrl + 'clients/' + id);
+    return this.http.get<Client>(this.baseUrl + 'clients/' + id)
+    .pipe(
+      tap(client => {
+        this.client.set(client);
+      })
+    )
+  }
+
+  updateMember(client: EditableClient) {
+    return this.http.put(this.baseUrl + 'clients', client);
   }
 
   // private getHttpOptions() {

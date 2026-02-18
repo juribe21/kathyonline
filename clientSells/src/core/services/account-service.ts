@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment.development';
 export class AccountService {
   private http = inject(HttpClient);
   currentUser = signal<User | null>(null);
+  adminUser = signal<boolean | null>(false);
   private baseUrl = environment.apiUrl;
 
   register(creds: RegisterCreds) {
@@ -25,6 +26,13 @@ export class AccountService {
   setCurrentUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUser.set(user);
+
+    if (user.userTypeId === 1) {
+      this.adminUser.set(true);
+    }
+    if (user.userTypeId === 2) {
+      this.adminUser.set(false);
+    }
   }
 
   login(creds: any) {
@@ -39,6 +47,8 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('user');
+    localStorage.removeItem('administrator');
     this.currentUser.set(null);
+    this.adminUser.set(null);
   }
 }

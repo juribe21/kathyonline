@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AccountService } from '../../core/services/account-service';
 import { ToastService } from '../../core/services/toast-service';
 import { themes } from '../theme';
+import { BusyService } from '../../core/services/busy-service';
 
 @Component({
   selector: 'app-nav',
@@ -14,6 +15,7 @@ import { themes } from '../theme';
 export class Nav implements OnInit {
   protected creds: any = {};
   protected accountService = inject(AccountService);
+  protected busyService = inject(BusyService);
   private router = inject(Router);
   private toast = inject(ToastService);
 
@@ -34,7 +36,7 @@ export class Nav implements OnInit {
 
     /* Deselect Dropdown */
     const elem = document.activeElement as HTMLDivElement;
-    if(elem) elem.blur();
+    if (elem) elem.blur();
   }
 
   login() {

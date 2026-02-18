@@ -21,8 +21,8 @@ import { AgePipe } from '../../../core/pipes/age-pipe';
   styleUrl: './client-detailed.css',
 })
 export class ClientDetailed implements OnInit {
-  private adminService = inject(AdminService);
-  private accountService = inject(AccountService);
+  protected adminService = inject(AdminService);
+  protected accountService = inject(AccountService);
   private route = inject(ActivatedRoute);
 
   private router = inject(Router);
@@ -32,13 +32,17 @@ export class ClientDetailed implements OnInit {
     return this.accountService.currentUser()?.id === this.route.snapshot.paramMap.get('id');
   });
 
-  protected client = signal<Client | undefined>(undefined);
+  protected isAdministratroUser = computed(() => {
+    return this.accountService.adminUser() === true;
+  })
+
+  //protected client = signal<Client | undefined>(undefined);
 
   ngOnInit(): void {
     /* Get information from resolver */
-    this.route.data.subscribe({
-      next: (data) => this.client.set(data['client']),
-    });
+    // this.route.data.subscribe({
+    //   next: (data) => this.client.set(data['client']),
+    // });
 
     /* Lesson 100 section 9  */
     this.title.set(this.route.firstChild?.snapshot.title);

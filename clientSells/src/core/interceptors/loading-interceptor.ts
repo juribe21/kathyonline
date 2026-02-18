@@ -1,0 +1,32 @@
+// section 10
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { BusyService } from '../services/busy-service';
+import { delay, finalize, of, tap } from 'rxjs';
+
+const cache = new Map<string, any>();
+
+export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
+  const busyService = inject(BusyService);
+
+  /* Section 10 */
+  // if (req.method === 'GET') {
+  //   const cachedResponse = cache.get(req.url);
+  //   if (cachedResponse) {
+  //     return of(cachedResponse);
+  //   }
+  // }
+
+  /* Section 10 - Leccion 118 */
+  busyService.busy();
+
+  return next(req).pipe(
+    delay(400),
+    tap((response) => {
+      cache.set(req.url, response);
+    }),
+    finalize(() => {
+      busyService.idle();
+    }),
+  );
+};

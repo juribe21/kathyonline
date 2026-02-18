@@ -1,4 +1,4 @@
-@if(client(); as client){
+@if(adminService.client(); as client){
 <div class="flex gap-6">
   <div class=" card bg-base-100 flex flex-col h-[85vh] w-3/16">
     <img src="{{client.imageUrl || '/user.png'}}" alt="iamge of member" class="rounded-4xl mx-10 mt-3 object-cover">
@@ -36,11 +36,11 @@
   <div class="card bg-base-100 w-7/8 p-6">
     <div class="flex justify-between items-center">
       <h3 class="card-title text-3xl text-primary">{{title()}}</h3>
-      @if(isCurrentUser()){
-      <div>boton para modificaciones</div>
-      <!-- <button (click)="adminService.editMode.set(!adminService.editMode())" class="btn btn-outline-info btn-primary">
+      <!-- @if(isCurrentUser()){ -->
+      @if(accountService.adminUser() || isCurrentUser()){
+      <button (click)="adminService.editMode.set(!adminService.editMode())" class="btn btn-outline-info btn-primary">
         {{adminService.editMode()? 'Cancel':'Edit'}}
-      </button> -->
+      </button>
       }
     </div>
 

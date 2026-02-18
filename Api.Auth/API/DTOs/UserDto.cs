@@ -10,5 +10,6 @@
         public required string Name { get; set; }
         public string? ImageUrl { get; set; }
         public required string Token { get; set; }
+        public int UserTypeId { get; set; }
     }
 }

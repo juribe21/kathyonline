@@ -1,6 +1,13 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../../core/services/product-service';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { filter, Observable } from 'rxjs';
 import { Product } from '../../../types/Product';
@@ -8,7 +15,7 @@ import { AccountService } from '../../../core/services/account-service';
 
 @Component({
   selector: 'app-product-detailed',
-  imports: [AsyncPipe, RouterLink, RouterLinkActive, RouterOutlet],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './product-detailed.html',
   styleUrl: './product-detailed.css',
 })
@@ -27,12 +34,11 @@ export class ProductDetailed implements OnInit {
   ngOnInit(): void {
     /* Get information from resolver */
     this.route.data.subscribe({
-      next: data => this.product.set(data['product'])
-    })
+      next: (data) => this.product.set(data['product']),
+    });
 
     this.productName.set(this.route.firstChild?.snapshot.title);
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd))
-    .subscribe({
+    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe({
       next: () => {
         this.productName.set(this.route.firstChild?.snapshot.title);
       },

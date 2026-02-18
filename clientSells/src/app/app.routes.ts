@@ -21,6 +21,7 @@ import { ProductFoto } from '../features/products/product-foto/product-foto';
 import { CarritoCompras } from '../features/pedidos/carrito-compras/carrito-compras';
 import { clientResolver } from '../features/clients/client-resolver';
 import { productResolver } from '../features/products/product-resolver';
+import { preventUnsavedChangesGuard } from '../core/guards/prevent-unsaved-changes-guard';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -64,7 +65,7 @@ export const routes: Routes = [
     component: ClientDetailed,
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      { path: 'profile', component: ClientProfile, title: 'Perfil' },
+      { path: 'profile', component: ClientProfile, title: 'Perfil', canDeactivate: [preventUnsavedChangesGuard] },
       { path: 'messages', component: ClientMensajes, title: 'Mensajes' },
       { path: 'compras', component: ClientCompras, title: 'Compras' },
     ],

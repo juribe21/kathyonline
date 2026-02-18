@@ -56,8 +56,18 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateMember(ClientUpdateDto clientUpdateDto)
         {
-            var clientId = User.GetMemberId();
-            if (clientId == null) return BadRequest("No Id found in token");
+            string clientId = string.Empty;
+            if (!clientUpdateDto.IsAdmin)
+            {
+                var clientSessionId = User.GetMemberId();                
+                if (clientId == null) return BadRequest("No Id found in token");
+                clientId = clientSessionId;
+            }
+            else
+            {
+                clientId = clientUpdateDto.ClientIdToUpdate;
+            }
+            
 
             var client = await clientRepository.GetClientForUpdate(clientId);
             if (client == null) return BadRequest("Could no get member");
@@ -65,9 +75,8 @@ namespace API.Controllers
             client.Name = clientUpdateDto.Name ?? client.Name;
             client.LastName = clientUpdateDto.LastName ?? client.LastName;
             client.Telefono = clientUpdateDto.Telefono ?? client.Telefono;
+            client.Email = clientUpdateDto.Email ?? client.Email;
             client.Description = clientUpdateDto.Description ?? client.Description;
-            client.City = clientUpdateDto.City ?? client.City;
-            client.Country = clientUpdateDto.Country ?? client.Country;
 
             // Update name en Entidad AppUser
             client.User.Name = clientUpdateDto.Name ?? client.User.Name;
@@ -77,6 +86,13 @@ namespace API.Controllers
             if (await clientRepository.SaveAllAsync()) return NoContent();
             return BadRequest("Failed to update member");
         }
+
+        //[HttpPut("updateMemberAsAdministrator")]
+        //public async Task<ActionResult> UpdateMemberAsAdministrator(ClientUpdateDto clientUpdateDto)
+        //{
+        //    var client = await clientRepository.GetClientForUpdate(clientUpdateDto.ClientIdToUpdate);
+        //    return Ok();
+        //}
 
     }
 }

@@ -120,6 +120,36 @@ namespace API.Data.Migrations
                     b.ToTable("Clients");
                 });
 
+            modelBuilder.Entity("API.Entities.DetalleVenta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SubTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("VentaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VentaId");
+
+                    b.ToTable("DetalleVentas");
+                });
+
             modelBuilder.Entity("API.Entities.Gender", b =>
                 {
                     b.Property<int>("Id")
@@ -252,13 +282,38 @@ namespace API.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Gender")
+                    b.Property<string>("TipoUsuario")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("UserTypes");
+                });
+
+            modelBuilder.Entity("API.Entities.Venta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntregaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("FechaEntrega")
+                        .HasColumnType("date");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ventas");
                 });
 
             modelBuilder.Entity("API.Entities.Client", b =>
@@ -270,6 +325,17 @@ namespace API.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("API.Entities.DetalleVenta", b =>
+                {
+                    b.HasOne("API.Entities.Venta", "Venta")
+                        .WithMany("DetalleVentas")
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Venta");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -324,6 +390,11 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Product", b =>
                 {
                     b.Navigation("ProductPictures");
+                });
+
+            modelBuilder.Entity("API.Entities.Venta", b =>
+                {
+                    b.Navigation("DetalleVentas");
                 });
 #pragma warning restore 612, 618
         }
