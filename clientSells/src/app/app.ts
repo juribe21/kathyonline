@@ -3,6 +3,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Nav } from '../layout/nav/nav';
 import { User } from '../types/user';
 import { Router, RouterOutlet } from '@angular/router';
+import { AccountService } from '../core/services/account-service';
 
 @Component({
   selector: 'app-root',
@@ -18,19 +19,19 @@ export class App {
 
   /* All code commented out will be called from differente location */
 
-  // private accountService = inject(AccountService);
+  private accountService = inject(AccountService);
 
   // ngOnInit(): void {
   //   this.getUsers();
   //   this.setCurrentUser();
   // }
 
-  // setCurrentUser() {
-  //   const userString = localStorage.getItem('user');
-  //   if (!userString) return;
-  //   const user = JSON.parse(userString);
-  //   this.accountService.currentUser.set(user);
-  // }
+  setCurrentUser() {
+    const userString = localStorage.getItem('user');
+    if (!userString) return;
+    const user = JSON.parse(userString);
+    this.accountService.currentUser.set(user);
+  }
 
   // async getUsers() {
   //   try {

@@ -1,7 +1,6 @@
-
 # dotnet ef migrations add AddProductPictures
-# dotnet ef database update
 
+# dotnet ef database update
 
 # ClientSells
 
@@ -63,7 +62,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-### **********************\*\*\*\***********************\*\*\*\***********************\*\*\*\***********************
+### **********\*\***********\*\*\*\***********\*\***********\*\*\*\***********\*\***********\*\*\*\***********\*\***********
 
 ## Compact Folder
 
@@ -125,3 +124,11 @@ For more information on using the Angular CLI, including detailed command refere
 ## **_ Check lesso 68 App initialization _**
 
 - init service
+
+## PhotoMocks
+
+getPhotoMocks() {
+return Array.from({ length: 20 }, (\_, i) => ({
+Url: '/user.png',
+}));
+}

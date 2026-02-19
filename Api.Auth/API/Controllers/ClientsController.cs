@@ -59,7 +59,7 @@ namespace API.Controllers
             string clientId = string.Empty;
             if (!clientUpdateDto.IsAdmin)
             {
-                var clientSessionId = User.GetMemberId();                
+                var clientSessionId = User.GetClientId();                
                 if (clientId == null) return BadRequest("No Id found in token");
                 clientId = clientSessionId;
             }

@@ -5,6 +5,8 @@ import { AccountService } from '../../core/services/account-service';
 import { ToastService } from '../../core/services/toast-service';
 import { themes } from '../theme';
 import { BusyService } from '../../core/services/busy-service';
+import { User } from '../../types/user';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -14,6 +16,7 @@ import { BusyService } from '../../core/services/busy-service';
 })
 export class Nav implements OnInit {
   protected creds: any = {};
+
   protected accountService = inject(AccountService);
   protected busyService = inject(BusyService);
   private router = inject(Router);
@@ -24,6 +27,8 @@ export class Nav implements OnInit {
 
   protected catE = signal<string>('e');
   protected catJ = signal<string>('j');
+
+  private user = signal<User | null>(null);
 
   ngOnInit(): void {
     document.documentElement.setAttribute('data-theme', this.selectedTheme());
@@ -44,7 +49,13 @@ export class Nav implements OnInit {
       next: () => {
         this.router.navigateByUrl('/joyeria/{{catJ()}}');
         this.toast.success('Logged in successfull');
+
+        const userString = localStorage.getItem('user');
+        if (!userString) return of(null);
+        const user = JSON.parse(userString);
+        this.accountService.setCurrentUser(user);
         this.creds = {};
+        return;
       },
       error: (error) => {
         this.toast.error(error.error);

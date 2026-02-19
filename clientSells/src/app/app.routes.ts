@@ -22,15 +22,18 @@ import { CarritoCompras } from '../features/pedidos/carrito-compras/carrito-comp
 import { clientResolver } from '../features/clients/client-resolver';
 import { productResolver } from '../features/products/product-resolver';
 import { preventUnsavedChangesGuard } from '../core/guards/prevent-unsaved-changes-guard';
+import { ClientFoto } from '../features/clients/client-foto/client-foto';
+import { Sistema } from '../features/Admin/sistema/sistema';
 
 export const routes: Routes = [
   { path: '', component: Home },
+
+  /* Administracion de Productos */
   {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
     children: [
-      /* Clientes */
       { path: 'products', component: ProductList },
       { path: 'joyeria/:cat', component: ProductList },
       { path: 'enfermeria/:cat', component: ProductList },
@@ -42,7 +45,6 @@ export const routes: Routes = [
         children: [
           { path: '', redirectTo: 'foto', pathMatch: 'full' },
           { path: 'foto', component: ProductFoto, title: 'Foto(s)' },
-          { path: 'descripcion', component: ProductFoto, title: 'Descripcion' },
           { path: 'carrito', component: CarritoCompras, title: 'Carrito' },
         ],
       },
@@ -50,14 +52,7 @@ export const routes: Routes = [
     ],
   },
 
-  { path: 'errors', component: TestErrors },
-  { path: 'server-error', component: ServerError },
-
-  /* Administracion */
-  { path: 'users', component: UserList },
-  { path: 'users/:id', component: UserDetailed },
-
-  { path: 'clientes', component: ClientList },
+  /* Administracion de Clientes */
   {
     path: 'clientes/:id',
     resolve: { client: clientResolver },
@@ -65,15 +60,29 @@ export const routes: Routes = [
     component: ClientDetailed,
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
-      { path: 'profile', component: ClientProfile, title: 'Perfil', canDeactivate: [preventUnsavedChangesGuard] },
+      { path: 'clientfoto', component: ClientFoto, title: 'Foto(s)' },
+      {
+        path: 'profile',
+        component: ClientProfile,
+        title: 'Perfil',
+        canDeactivate: [preventUnsavedChangesGuard],
+      },
       { path: 'messages', component: ClientMensajes, title: 'Mensajes' },
       { path: 'compras', component: ClientCompras, title: 'Compras' },
     ],
   },
 
+  /* Administracion */
+  { path: 'users', component: UserList },
+  { path: 'users/:id', component: UserDetailed },
+  { path: 'clientes', component: ClientList },
+  { path: 'sistema', component: Sistema },
+  { path: 'addfotos', component: ProductFoto, title: 'Foto(s)' },
   { path: 'adminproducts', component: AdminProducts },
   { path: 'admincategorias', component: Categorias },
   { path: 'adminentrega', component: PuntosEntrega },
+  { path: 'errors', component: TestErrors },
+  { path: 'server-error', component: ServerError },
 
   { path: '**', component: NotFound },
 ];

@@ -7,9 +7,7 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { AsyncPipe } from '@angular/common';
 import { filter, Observable } from 'rxjs';
-import { Client } from '../../../types/Client';
 import { AdminService } from '../../../core/services/admin-service';
 import { AccountService } from '../../../core/services/account-service';
 import { AgePipe } from '../../../core/pipes/age-pipe';

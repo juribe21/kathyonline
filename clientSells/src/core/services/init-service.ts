@@ -12,6 +12,8 @@ export class InitService {
     const userString = localStorage.getItem('user');
     if (!userString) return of(null);
     const user = JSON.parse(userString);
+    // Set user as Admin or client
+    this.accountService.setCurrentUser(user);
     this.accountService.currentUser.set(user);
 
     return of(null);

@@ -1,0 +1,15 @@
+@if(!adminService.editMode()){
+<!-- Muestra la foto actual de Perfil -->
+  @if(photo(); as foto){
+    <div class="flex gap-3 justify-center py-3">
+      <span>Foto de cliente</span>
+    </div>
+    <div class="flex gap-3 justify-center">
+      <img src="{{foto.url}}" alt="" width="250">
+    </div>
+  }
+
+
+} @else {
+<app-image-upload (uploadFile)="onUploadImafe($event)" [loading]="loading()" />
+}

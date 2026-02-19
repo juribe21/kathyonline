@@ -21,19 +21,16 @@ export class ProductFoto implements OnInit {
 
   protected photos$?: Observable<Photo[]>;
 
-  ngOnInit(): void {
-    this.route.parent?.data.subscribe((data) =>{
-      this.product.set(data['product'])
-    })
-  }
-
-  constructor(){
+  constructor() {
     const clientId = this.route.parent?.snapshot.paramMap.get('id');
-    if(clientId){
+    if (clientId) {
       this.photos$ = this.productService.getPreviosPurchasedProducts(clientId);
     }
   }
 
-
-
+  ngOnInit(): void {
+    this.route.parent?.data.subscribe((data) => {
+      this.product.set(data['product']);
+    });
+  }
 }
