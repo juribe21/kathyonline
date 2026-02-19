@@ -9,7 +9,7 @@ namespace API.Data
 
         public async Task<IReadOnlyList<Product>> GetProductsAsync(string cat)
         {
-            if (string.IsNullOrWhiteSpace(cat))
+            if (cat == "a")
             {
                 return await context.Products.ToListAsync();
             }

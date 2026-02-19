@@ -20,14 +20,11 @@ export class ProductList {
   constructor() {
     const cat = this.route.snapshot.paramMap.get('cat');
     if (!cat) {
-      this.products$ = this.productService.getProductsV1('');
+      this.products$ = this.productService.getProductsV1('a');
     } else {
       this.products$ = this.productService.getProductsV1(cat);
     }
-
   }
 
-  loadFilteredProducts() {
-
-  }
+  loadFilteredProducts() {}
 }

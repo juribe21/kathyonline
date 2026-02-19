@@ -24,6 +24,9 @@ import { productResolver } from '../features/products/product-resolver';
 import { preventUnsavedChangesGuard } from '../core/guards/prevent-unsaved-changes-guard';
 import { ClientFoto } from '../features/clients/client-foto/client-foto';
 import { Sistema } from '../features/Admin/sistema/sistema';
+import { AddProduct } from '../features/Admin/add-product/add-product';
+import { Pedidos } from '../features/Admin/pedidos/pedidos';
+import { EliminarProducto } from '../features/Admin/eliminar-producto/eliminar-producto';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -46,6 +49,10 @@ export const routes: Routes = [
           { path: '', redirectTo: 'foto', pathMatch: 'full' },
           { path: 'foto', component: ProductFoto, title: 'Foto(s)' },
           { path: 'carrito', component: CarritoCompras, title: 'Carrito' },
+          { path: 'addproduct', component: AddProduct, title: 'Agregar Producto' },
+          { path: 'pedidos', component: Pedidos, title: 'Lista de Pedidos' },
+          { path: 'eliminarproducto', component: EliminarProducto, title: 'Eliminar Producto' },
+          { path: 'sistema', component: Sistema, title: 'Configuracion' },
         ],
       },
       { path: 'messages', component: Messages },
@@ -69,6 +76,7 @@ export const routes: Routes = [
       },
       { path: 'messages', component: ClientMensajes, title: 'Mensajes' },
       { path: 'compras', component: ClientCompras, title: 'Compras' },
+      { path: 'carrito', component: CarritoCompras, title: 'Carrito' },
     ],
   },
 
@@ -76,13 +84,12 @@ export const routes: Routes = [
   { path: 'users', component: UserList },
   { path: 'users/:id', component: UserDetailed },
   { path: 'clientes', component: ClientList },
+  { path: 'listaproductos', component: ProductList },
   { path: 'sistema', component: Sistema },
-  { path: 'addfotos', component: ProductFoto, title: 'Foto(s)' },
   { path: 'adminproducts', component: AdminProducts },
   { path: 'admincategorias', component: Categorias },
   { path: 'adminentrega', component: PuntosEntrega },
   { path: 'errors', component: TestErrors },
   { path: 'server-error', component: ServerError },
-
   { path: '**', component: NotFound },
 ];

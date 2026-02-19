@@ -21,7 +21,8 @@ import { AccountService } from '../../../core/services/account-service';
 })
 export class ProductDetailed implements OnInit {
   private productService = inject(ProductService);
-  private accountService = inject(AccountService);
+  protected accountService = inject(AccountService);
+
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   protected productName = signal<string | undefined>('Producto Name');
