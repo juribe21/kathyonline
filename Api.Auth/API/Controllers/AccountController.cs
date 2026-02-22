@@ -22,7 +22,7 @@ namespace API.Controllers
             }
 
             using var hmac = new HMACSHA512();
-            
+
             var appUser = new AppUser
             {
                 Name = registerDto.Name,
@@ -34,8 +34,8 @@ namespace API.Controllers
 
             context.AppUsers.Add(appUser);
             await context.SaveChangesAsync();
-            
-            return appUser.ToDto(tokenService);            
+
+            return appUser.ToDto(tokenService);
         }
 
         [HttpPost("login")]

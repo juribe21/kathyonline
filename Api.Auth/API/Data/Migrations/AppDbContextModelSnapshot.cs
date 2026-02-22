@@ -138,7 +138,7 @@ namespace API.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("SubTotal")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(14,2)");
 
                     b.Property<int>("VentaId")
                         .HasColumnType("int");
@@ -165,6 +165,40 @@ namespace API.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genders");
+                });
+
+            modelBuilder.Entity("API.Entities.Pedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("FechaEntrega")
+                        .HasColumnType("date");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PuntoEntregaId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SubTotal")
+                        .HasColumnType("decimal(14,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -205,12 +239,21 @@ namespace API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateOnly?>("DateDeleted")
+                        .HasColumnType("date");
+
+                    b.Property<string>("DeletedByUserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("Precio")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(14,2)");
 
                     b.Property<string>("ProductImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -249,7 +292,24 @@ namespace API.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductPicture");
+                    b.ToTable("ProductPictures");
+                });
+
+            modelBuilder.Entity("API.Entities.PuntoEntrega", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LugarEntrega")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PuntosEntrega");
                 });
 
             modelBuilder.Entity("API.Entities.User", b =>
@@ -302,16 +362,21 @@ namespace API.Data.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("EntregaId")
-                        .HasColumnType("int");
-
                     b.Property<DateOnly>("FechaEntrega")
                         .HasColumnType("date");
 
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PuntoEntregaId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(14,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
 
                     b.ToTable("Ventas");
                 });
@@ -371,6 +436,17 @@ namespace API.Data.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("API.Entities.Venta", b =>
+                {
+                    b.HasOne("API.Entities.Pedido", "Pedido")
+                        .WithMany("Ventas")
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
+                });
+
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
                     b.Navigation("Client")
@@ -385,6 +461,11 @@ namespace API.Data.Migrations
             modelBuilder.Entity("API.Entities.Client", b =>
                 {
                     b.Navigation("Photos");
+                });
+
+            modelBuilder.Entity("API.Entities.Pedido", b =>
+                {
+                    b.Navigation("Ventas");
                 });
 
             modelBuilder.Entity("API.Entities.Product", b =>

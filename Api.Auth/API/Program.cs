@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-   opt.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnection"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("StoreConnection"));
 });
 
 builder.Services.AddCors();
@@ -22,6 +22,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
+builder.Services.AddScoped<IProductAdminRepository,  ProductAdminRepository>();
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
@@ -59,8 +60,8 @@ try
 {
     var context = services.GetRequiredService<AppDbContext>();
     await context.Database.MigrateAsync();
-    //await Seed.Seedusers(context);
-    await SeedProduct.SeedProducts(context);
+    await Seed.Seedusers(context);
+    //await SeedProduct.SeedProducts(context);
 }
 catch (Exception ex)
 {

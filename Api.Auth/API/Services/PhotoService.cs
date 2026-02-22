@@ -32,6 +32,8 @@ namespace API.Services
 
         public async Task<Client?> GetClientForUpdate(string id)
         {
+            /* Check if is aadmin or client*/
+
             return await context.Clients
             .Include(x => x.User)
             .Include(x => x.Photos)

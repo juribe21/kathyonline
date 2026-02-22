@@ -27,6 +27,7 @@ import { Sistema } from '../features/Admin/sistema/sistema';
 import { AddProduct } from '../features/Admin/add-product/add-product';
 import { Pedidos } from '../features/Admin/pedidos/pedidos';
 import { EliminarProducto } from '../features/Admin/eliminar-producto/eliminar-producto';
+import { FotosNuevosProductos } from '../features/Admin/fotos-nuevos-productos/fotos-nuevos-productos';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -49,10 +50,7 @@ export const routes: Routes = [
           { path: '', redirectTo: 'foto', pathMatch: 'full' },
           { path: 'foto', component: ProductFoto, title: 'Foto(s)' },
           { path: 'carrito', component: CarritoCompras, title: 'Carrito' },
-          { path: 'addproduct', component: AddProduct, title: 'Agregar Producto' },
-          { path: 'pedidos', component: Pedidos, title: 'Lista de Pedidos' },
           { path: 'eliminarproducto', component: EliminarProducto, title: 'Eliminar Producto' },
-          { path: 'sistema', component: Sistema, title: 'Configuracion' },
         ],
       },
       { path: 'messages', component: Messages },
@@ -80,13 +78,27 @@ export const routes: Routes = [
     ],
   },
 
+  /* Administracion Productos*/
+  {
+    path: 'adminproducts',
+    component: AdminProducts,
+    children: [
+      { path: 'addproduct', component: AddProduct, title: 'Agregar Producto' },
+      { path: 'pedidos', component: Pedidos, title: 'Lista de Pedidos' },
+      { path: 'foto', component: FotosNuevosProductos, title: 'Foto(s)' },
+      { path: 'carrito', component: CarritoCompras, title: 'Carrito' },
+      { path: 'eliminarproducto', component: EliminarProducto, title: 'Eliminar Producto' },
+      { path: 'sistema', component: Sistema, title: 'Configuracion' },
+    ],
+  },
+
   /* Administracion */
   { path: 'users', component: UserList },
   { path: 'users/:id', component: UserDetailed },
   { path: 'clientes', component: ClientList },
   { path: 'listaproductos', component: ProductList },
   { path: 'sistema', component: Sistema },
-  { path: 'adminproducts', component: AdminProducts },
+
   { path: 'admincategorias', component: Categorias },
   { path: 'adminentrega', component: PuntosEntrega },
   { path: 'errors', component: TestErrors },

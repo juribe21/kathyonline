@@ -9,7 +9,7 @@ namespace API.Entities
         public string? PublicId { get; set; }
 
         [JsonIgnore]
-        public Product Product { get; set; }
-        public string ProductId { get; set; }
+        public Product Product { get; set; } = null!;
+        public string ProductId { get; set; } = null!;
     }
 }

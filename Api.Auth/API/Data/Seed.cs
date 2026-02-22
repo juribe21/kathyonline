@@ -12,7 +12,7 @@ public class Seed
 {
     public static async Task Seedusers(AppDbContext context)
     {
-        if(await context.Users.AnyAsync()) return;
+        if (await context.Users.AnyAsync()) return;
 
         var memberData = await File.ReadAllTextAsync("Data/UserSeedData.json");
         var clients = JsonSerializer.Deserialize<List<SeedUserDto>>(memberData);
@@ -23,7 +23,7 @@ public class Seed
             return;
         }
 
-        foreach(var client in clients)
+        foreach (var client in clients)
         {
             using var hmac = new HMACSHA512();
 
@@ -34,7 +34,7 @@ public class Seed
                 Name = client.Name,
                 ImageUrl = client.ImageUrl,
                 UserTypeId = 1,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$word")),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("password")),
                 PasswordSalt = hmac.Key,
                 Client = new Client
                 {
