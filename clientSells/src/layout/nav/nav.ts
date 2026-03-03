@@ -45,9 +45,19 @@ export class Nav implements OnInit {
   }
 
   login() {
+    /* TEST */
+    // this.creds.email = 'kathy@test.com';
+    // this.creds.password = 'password';
+    /* ******************************* */
+
     this.accountService.login(this.creds).subscribe({
       next: () => {
-        this.router.navigateByUrl('/joyeria/{{catJ()}}');
+        if (this.accountService.adminUser()) {
+          this.router.navigateByUrl('/listaproductos');
+        } else {
+          this.router.navigateByUrl('/joyeria/{{catJ()}}');
+        }
+
         this.toast.success('Logged in successfull');
 
         const userString = localStorage.getItem('user');

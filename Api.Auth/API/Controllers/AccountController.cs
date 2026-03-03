@@ -29,7 +29,22 @@ namespace API.Controllers
                 Email = registerDto.Email,
                 UserTypeId = registerDto.UserTypeId,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                Client = new Client
+                {
+                    Id = "",
+                    Name = registerDto.Nombre,
+                    LastName = registerDto.LastName,
+                    Telefono = registerDto.Telefono,
+                    Gender = registerDto.Gender == "H"? 1 : 2,
+                    DateOfBirth = registerDto.DateOfBirth == default? 
+                        DateOnly.Parse(DateTime.Now.ToShortDateString()) 
+                        : DateOnly.Parse(registerDto.DateOfBirth),
+                    Description = registerDto.Description,
+                    Email = registerDto.Email,
+                    City = "Tijuana",
+                    Country = "Mexico"
+                }
             };
 
             context.AppUsers.Add(appUser);

@@ -14,6 +14,13 @@ export class AccountService {
   private baseUrl = environment.apiUrl;
 
   register(creds: RegisterCreds) {
+    
+    if (this.adminUser()) {
+      creds.userTypeId = 1;
+    } else {
+      creds.userTypeId = 2;
+    }
+
     return this.http.post<User>(this.baseUrl + 'account/register', creds).pipe(
       tap((user) => {
         if (user) {

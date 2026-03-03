@@ -1,17 +1,84 @@
 <div class="card bg-base=100 w-1/2 mx-auto flex flex-col p-6 rounded-lg shadow-lg">
-  <div class="card-title justify-center text-3xl text-primary">Sign up</div>
+  <div class="card-title justify-center text-3xl text-primary">Registrate</div>
   <div class="card-body w-full">
-    <form #registerFomr="ngForm" class="flex flex-col gap-4 w-full" (ngSubmit)="register()">
-      <input type="text" class="input w-full" name="email" [(ngModel)]="creds.email" placeholder="Email">
-      <input type="text" class="input w-full" name="name" [(ngModel)]="creds.name" placeholder="Name">
-      <input type="password" class="input w-full" name="password" [(ngModel)]="creds.password" placeholder="Password">
 
+    <ul class="steps">
+      <li class="step step-primary">Accesos</li>
+      <li class="step" [class.step-primary]="currentStep() === 2">Perfil</li>
+    </ul>
+
+    @if (currentStep() === 1) {
+    <form [formGroup]="credentialsForm" class="flex flex-col mt-3 gap-4 w-full steps">
+      <app-text-input label="Email" formControlName="email" />
+      <app-text-input label="Display Name" formControlName="name" />
+      <app-text-input label="Password" formControlName="password" type="password" />
+      <app-text-input label="Confirm Password" formControlName="confirmPassword" type="password" />
       <div class="flex items-center justify-end gap-3">
         <button class="btn" (click)="cancel()" type="button">Cancelar</button>
-        <button class="btn btn-primary" type="submit">Registrarse
+        <button [disabled]="!credentialsForm.valid" class="btn btn-primary" (click)="nextStep()" type="submit">Siguiente
         </button>
       </div>
 
     </form>
+    }
+    @if (currentStep() === 2){
+    <form [formGroup]="profileForm" class="flex flex-col w-full gap-4 steps">
+
+      <app-text-input label="Nombre" formControlName="nombre" />
+      <app-text-input label="Apellido" formControlName="lastName" />
+      <!-- <app-text-input label="Email" formControlName="email" /> SE TOMARA EL EMAIL DE LOS ACCESOS -->
+      <app-text-input label="Telefono" formControlName="telefono" />
+
+      <div class="flex items-center gap-4">
+        <div class="font-semibold">Sexo</div>
+        <label class="flex gap-3 items-center">
+          <span>Homre</span>
+          <input type="radio" formControlName="gender" value="hombre" class="radio radio-primary">
+        </label>
+        <label class="flex gap-3 items-center">
+          <span>Mujer</span>
+          <input type="radio" formControlName="gender" value="mujer" class="radio radio-primary">
+        </label>
+      </div>
+
+      <app-text-input [maxDate]="getMaxDate()" type="date" label="Fecha Nacimiento" formControlName="dateOfBirth" />
+      <app-text-input label="Agrega breve descripcion" formControlName="description" />
+      <!-- SE PONDRA POR DEFAULT TIJUANA - MEXICO
+      <app-text-input label="Ciudad" formControlName="city" />
+      <app-text-input label="Pais" formControlName="country" />
+      -->
+
+      <div class="flex items-center justify-end gap-3">
+        <button class="btn" (click)="prevStep()" type="button">Regresar</button>
+        <button [disabled]="!credentialsForm.valid" class="btn btn-primary" (click)="register()"
+          type="submit">Registrarse
+        </button>
+      </div>
+    </form>
+    }
   </div>
+
+  @if (validationErrors().length > 0) {
+    <div class="mt-5 flex bg-gray-200 rounded-2xl w-1/2 p-3 mx-auto">
+      <div class="flex flex-col text-error space-y-1">
+        <ul>
+          @for (error of validationErrors(); track $index) {
+            <li>{{error}}</li>
+          }
+        </ul>
+      </div>
+    </div>
+  }
 </div>
+
+
+<!-- <label class="floating-label text-left">
+          <span>Display Name</span>
+          <input type="text" class="input w-full"
+            [class.input-error]="registerform.controls['displayName'].invalid && registerform.controls['displayName'].touched"
+            formControlName="displayName" placeholder="DisplayName">
+          @if (registerform.controls['displayName'].invalid && registerform.controls['displayName'].touched) {
+          <div class="validation-hint text-error text-xs">Display name is required</div>
+          }
+        </label>
+        -->

@@ -34,6 +34,16 @@ namespace API.Data
 
         public async Task<Product> AddProduct(ProductDto productDto)
         {
+
+            if (productDto.CategoriaId == "e")
+            {
+                productDto.CategoriaId = "enfermeria";                
+            }
+            else
+            {
+                productDto.CategoriaId = "joyeria";                
+            }
+
             var producto = new Product()
             {
                 Id = Guid.NewGuid().ToString(),
@@ -42,7 +52,7 @@ namespace API.Data
                 Description = productDto.Description,
                 Precio = productDto.Precio,
                 Cantidad = productDto.Cantidad,
-                IsDeleted = productDto.IsDeleted,
+                IsDeleted = productDto.IsDeleted ?? false,
                 DateDeleted = productDto.DateDeleted,
                 DeletedByUserId = productDto.DeletedByUserId,
                 CategoriaId = productDto.CategoriaId
@@ -72,9 +82,21 @@ namespace API.Data
                 ProductId = id,
             };
             context.ProductPictures.Add(pic);
+            await UpdateFotoProducto(pic.Url, pic.ProductId);
+            
             if(await SaveAllAsync()) return pic;
 
             return pic;
+        }
+
+        private async Task UpdateFotoProducto(string imgUrl, string productId)
+        {
+            var prod = await context.Products.FindAsync(productId);
+            if (prod != null)
+            {
+                prod.ProductImageUrl = imgUrl;
+            }
+            context.Entry(prod).State = EntityState.Modified;
         }
 
         public void UpdateProduct(ProductDto productDto)
@@ -102,16 +124,16 @@ namespace API.Data
             
         }
 
-        public async Task<bool> DeleteProduct(string Id)
+        public async Task<bool> DeleteProduct(string productId)
         {
-            var pics = await GetPhotosProductById(Id);
+            var pics = await GetPhotosProductById(productId);
 
             if (pics == null) { return false; }
 
             foreach (var photo in pics)
             {
                 // Delete from Coludinary
-                await DeletePhotoAsync(photo.ProductId);
+                await DeletePhotoAsync(photo.PublicId);
             }
 
             foreach (var photo in pics)
@@ -119,7 +141,7 @@ namespace API.Data
                 context.ProductPictures.Remove(photo);
             }
 
-            Product? productToRemove = context.Products.Where(x => x.Id == Id).SingleOrDefault();
+            Product? productToRemove = context.Products.Where(x => x.Id == productId).SingleOrDefault();
             if (productToRemove != null)
             {
                 context.Products.Remove(productToRemove);
@@ -133,11 +155,19 @@ namespace API.Data
             return false;
         }
 
-        public async Task<IReadOnlyList<ProductPicture>> GetPhotosProductById(string id)
+        public async Task<IReadOnlyList<ProductPicture>> GetPhotosProductById(string productId)
         {
             return await context.ProductPictures
-                .Where(x => x.ProductId == id)
+                .Where(x => x.ProductId == productId)
                 .ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<Product>> GetProducts()
+        {
+            return await context.Products
+                .Include(x => x.ProductPictures)
+                .ToListAsync();
+                
         }
 
         public async Task<bool> SaveAllAsync()
@@ -162,13 +192,20 @@ namespace API.Data
             return uploadResult;
         }
 
-        public async Task<DeletionResult> DeletePhotoAsync(string productId)
+        public async Task<DeletionResult> DeletePhotoAsync(string publicId)
         {
-            var photo = context.ProductPictures.SingleOrDefault(p => p.ProductId == productId);
+            var photo = context.ProductPictures.SingleOrDefault(p => p.PublicId == publicId);
             if (photo == null) return new DeletionResult();
 
             var deleteParams = new DeletionParams(photo?.PublicId);
-            return await _cloudinary.DestroyAsync(deleteParams);
+            if (deleteParams != null)
+            {
+                return await _cloudinary.DestroyAsync(deleteParams);
+            }
+            else
+            {
+                return new DeletionResult();
+            }
         }
 
         public async Task<DeletionResult> DeletePhotoByIdAsync(string publicId)
@@ -178,8 +215,7 @@ namespace API.Data
             var pic = context.ProductPictures.Where(x => x.PublicId == publicId).SingleOrDefault();
             if (pic == null) return new DeletionResult();
             else
-            {
-                
+            {                
                 var deleteParams = new DeletionParams(publicId);
                 if(deleteParams != null)
                 {
@@ -189,6 +225,15 @@ namespace API.Data
 
                 return deleteresult;
             }
+        }
+
+        public async Task<DeletionResult> DeleteProductPhotoByIdAsync(int id)
+        {
+            var prod = context.ProductPictures.Where(x => x.Id == id).SingleOrDefault();
+            if (prod == null || string.IsNullOrEmpty(prod.PublicId)) return new DeletionResult();
+
+            return await DeletePhotoByIdAsync(prod.PublicId);
+
         }
 
         public async Task<bool> ValidateUserAdministrator(string userId)
@@ -202,6 +247,6 @@ namespace API.Data
                 return false;
             }
         }
-        
+               
     }
 }

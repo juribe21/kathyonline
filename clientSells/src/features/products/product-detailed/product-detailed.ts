@@ -12,6 +12,7 @@ import { AsyncPipe } from '@angular/common';
 import { filter, Observable } from 'rxjs';
 import { Product } from '../../../types/Product';
 import { AccountService } from '../../../core/services/account-service';
+import { ToastService } from '../../../core/services/toast-service';
 
 @Component({
   selector: 'app-product-detailed',
@@ -22,6 +23,7 @@ import { AccountService } from '../../../core/services/account-service';
 export class ProductDetailed implements OnInit {
   private productService = inject(ProductService);
   protected accountService = inject(AccountService);
+  private toastService = inject(ToastService);
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -53,10 +55,32 @@ export class ProductDetailed implements OnInit {
   // }
 
   AgregarCarrito() {
-    console.log('Producto Agregado');
+    const product = this.product();
+    this.toastService.success('Producto "' + product?.productName + '" ha sido agregado');
+    // Recarar la lista con producto agregado
   }
 
   Cancel() {
     console.log('Cancelacion de compra');
+  }
+
+  verCompra() {}
+
+  eliminarProducto(event: Event) {
+    event.stopPropagation();
+
+    const product = this.product();
+    this.productService.removeSelectedProduct(product?.id as string).subscribe({
+      next: (response) => {
+        this.toastService.success('Producto eliminado correctamente');
+        this.router.navigateByUrl('/listaproductos');
+      },
+      error: (error) => {
+        this.toastService.error(error);
+        this.toastService.success(product?.id + ' No se elimino el producto seleccionado');
+      },
+    });
+
+
   }
 }

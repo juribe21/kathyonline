@@ -10,5 +10,6 @@ namespace API.Interfaces
         Task<DeletionResult> DeletePhotoAsync(string publicId);
         Task<bool> SaveAllAsync();
         Task<Photo> GetClientFoto(string id);
+        Task<IReadOnlyList<Photo>> GetClientFotos(string id);
     }
 }

@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrl: './pedidos.css',
 })
 export class Pedidos {
+  protected predicate = 'pedidos';
+  tabs = [
+    { label: 'Pedidos', value: 'pedidos' },
+    { label: 'Pagados', value: 'pagados' },
+    { label: 'Mis compras', value: 'miscompras' },
+  ];
 
+  setPredicate(predicate: string) {}
 }

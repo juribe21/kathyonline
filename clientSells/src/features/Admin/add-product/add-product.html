@@ -1,49 +1,60 @@
 @if (accountService.adminUser()) {
 <div class="flex flex-col h-[95vh]">
-  <form>
+
+  <form #addProduct="ngForm" (ngSubmit)="registrarProduct()">
+
+    <label class="flex justify-le items-center mb-4">
+      <span class="font-semibild mr-5">Categoria:</span>
+      <select name="orderBy" id="IdOrderBy" class="select" name="categoriaId" [(ngModel)]="addNewProduct.categoriaId">
+        <option disabled selected>Seleccione categoria</option>
+        <option value="j">Joyeria</option>
+        <option value="e">Enfermeria</option>
+        <option value="e">Otro</option>
+        <!-- @for(member of members(); track $index){
+                    <option value="{{member.id}}">{{member.name}}</option>
+                    } -->
+      </select>
+    </label>
+
     <div class="grid grid-cols-3 gap-6">
       <label class="floating-label">
         <span>Nombre Producto</span>
-        <input class="input w-full" name="displayName" placeholder="Nombre Producto">
+        <input class="input w-full" [(ngModel)]="addNewProduct.productName" name="productName"
+          placeholder="Nombre Producto">
       </label>
 
       <label class="floating-label">
         <span>Precio</span>
-        <input class="input w-full" name="displayName" placeholder="Precio">
+        <input class="input w-full" [(ngModel)]="addNewProduct.precio" name="precio" placeholder="Precio">
       </label>
 
       <label class="floating-label">
         <span>Cantidad</span>
-        <input class="input w-full" name="lastName" placeholder="Cantidad">
+        <input class="input w-full" [(ngModel)]="addNewProduct.cantidad" name="cantidad" placeholder="Cantidad">
       </label>
     </div>
 
     <div class="grid grid-col-3 gap-3 mt-3">
       <label class="floating-label">
-        <span>descripcion</span>
-        <textarea class="input w-full" name="descripcion" placeholder="descripcion"></textarea>
+        <span>Descripcion</span>
+        <textarea class="input w-full h-20 content-center-safe" [(ngModel)]="addNewProduct.description" name="description"
+          placeholder="Descripcion"></textarea>
       </label>
-      <label class="floating-label">
+      <!-- <label class="floating-label">
         <span>Direccion Imagen</span>
-        <input class="input w-full" name="urlimg" placeholder="Url imagen">
-      </label>
+        <input class="input w-full" [(ngModel)]="addNewProduct.productImageUrl" name="productImageUrl"
+          placeholder="Url imagen">
+      </label> -->
+      <div class="flex self-end mt-3">
+        <button  type="submit" class="btn btn-success">
+          Submit
+        </button>
+      </div>
+
     </div>
+
+    <!-- [disabled]="!addForm?.dirty" -->
   </form>
-
-  <div class="mt-3">
-    <div class="flex gap-3 justify-center py-3">
-      <span>Fotos</span>
-    </div>
-    <div class="flex gap-3 justify-center">
-      <img src="/user.png" alt="" width="100">
-      <img src="/user.png" alt="" width="100">
-      <img src="/user.png" alt="" width="100">
-    </div>
-  </div>
-
-  <div class="mt-5">
-    <app-image-upload (uploadFile)="onUploadImafe($event)" [loading]="loading()" />
-  </div>
 </div>
 
 

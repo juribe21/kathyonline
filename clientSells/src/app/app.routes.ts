@@ -49,6 +49,7 @@ export const routes: Routes = [
         children: [
           { path: '', redirectTo: 'foto', pathMatch: 'full' },
           { path: 'foto', component: ProductFoto, title: 'Foto(s)' },
+          { path: 'pedidos', component: Pedidos, title: 'Lista de Pedidos' },
           { path: 'carrito', component: CarritoCompras, title: 'Carrito' },
           { path: 'eliminarproducto', component: EliminarProducto, title: 'Eliminar Producto' },
         ],
@@ -98,7 +99,7 @@ export const routes: Routes = [
   { path: 'clientes', component: ClientList },
   { path: 'listaproductos', component: ProductList },
   { path: 'sistema', component: Sistema },
-
+  { path: 'carrito', component: CarritoCompras, title: 'Carrito' },
   { path: 'admincategorias', component: Categorias },
   { path: 'adminentrega', component: PuntosEntrega },
   { path: 'errors', component: TestErrors },

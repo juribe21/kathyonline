@@ -196,6 +196,9 @@ namespace API.Data.Migrations
                     b.Property<decimal>("SubTotal")
                         .HasColumnType("decimal(14,2)");
 
+                    b.Property<int>("TransactionId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Pedidos");

@@ -1,8 +1,63 @@
-<p>Ver listado de Carrito de Compras !!!</p>
-<div>
-  <ul class="ml-5">
-    <li>Ver todo el historial del carrito de compras</li>
-    <li>*************</li>
-    <li>*************</li>
-  </ul>
+<div class="flex mb-3">
+  <div class="text-2xl w-full text-primary">
+    Carrito de Compras
+  </div>
+</div>
+
+
+<div class=" flex flex-col w-full mb-5">
+  <div class="flex justify-between items-center">
+    <div class="tabs tabs-box tabs-lg text-primary w-fit gap-3">
+      <!-- @for (tab of tabs; track $index) {
+      <button role="tab" class="tab" [class.tab-active]="predicate === tab.value" (click)="setPredicate(tab.value)">
+        {{tab.label}}
+      </button>
+      } -->
+    </div>
+    <button (click)="comprar()" class="flex btn btn-primary">Comprar</button>
+  </div>
+</div>
+
+<div class="overflow-x-auto">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>Status compra</th>
+        <th>Nombre Cliente</th>
+        <th>Productos</th>
+        <th>Total</th>
+        <th>Fecha de Compra</th>
+        @if(accountService.adminUser()){
+        <th class="text-center">Cancelar</th>
+        }
+
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>1</th>
+        <td>En tramite</td>
+        <td>Jorge Uribe</td>
+        <td>Esclava, Bata, Anillo, </td>
+        <td>135.25</td>
+        <td>Feb 3 2026</td>
+
+        @if(accountService.adminUser()){
+        <td class="w-1/9 text-center">
+          <button (click)="deleteCarrito($event, '')" class="btn btn-circle btn-ghost text-error">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </td>
+        }
+
+
+      </tr>
+    </tbody>
+  </table>
 </div>

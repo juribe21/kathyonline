@@ -32,7 +32,7 @@ export class ClientDetailed implements OnInit {
 
   protected isAdministratroUser = computed(() => {
     return this.accountService.adminUser() === true;
-  })
+  });
 
   //protected client = signal<Client | undefined>(undefined);
 
@@ -50,6 +50,8 @@ export class ClientDetailed implements OnInit {
       },
     });
   }
+
+  cargarListaPedidos() {}
 
   // loadClient() {
   //   const id = this.route.snapshot.paramMap.get('id');

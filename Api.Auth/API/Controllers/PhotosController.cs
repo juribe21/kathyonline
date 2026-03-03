@@ -47,17 +47,17 @@ namespace API.Controllers
         [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {
-            var member = await photoService.GetClientForUpdate(User.GetClientId());
-            if (member == null) return BadRequest("Cannot get client from token");
-            var photo = member.Photos.SingleOrDefault(p => p.Id == photoId);
+            var client = await photoService.GetClientForUpdate(User.GetClientId());
+            if (client == null) return BadRequest("Cannot get client from token");
+            var photo = client.Photos.SingleOrDefault(p => p.Id == photoId);
 
-            if (member.ImageUrl == photo?.Url || photo == null)
+            if (client.ImageUrl == photo?.Url || photo == null)
             {
                 return BadRequest("Cannot set this as main image");
             }
 
-            member.ImageUrl = photo.Url;
-            member.User.ImageUrl = photo.Url;
+            client.ImageUrl = photo.Url;
+            client.User.ImageUrl = photo.Url;
 
             if (await photoService.SaveAllAsync()) return NoContent();
             return BadRequest("Problem setting main photo");
@@ -66,11 +66,11 @@ namespace API.Controllers
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
-            var member = await photoService.GetClientForUpdate(User.GetClientId());
-            if (member == null) return BadRequest("Cannot get client from token");
-            var photo = member.Photos.SingleOrDefault(p => p.Id == photoId);
+            var cliente = await photoService.GetClientForUpdate(User.GetClientId());
+            if (cliente == null) return BadRequest("Cannot get client from token");
+            var photo = cliente.Photos.SingleOrDefault(p => p.Id == photoId);
 
-            if (photo == null || photo?.Url == member.ImageUrl)
+            if (photo == null || photo?.Url == cliente.ImageUrl)
             {
                 return BadRequest("This photo cannot be deleted");
             }
@@ -84,9 +84,10 @@ namespace API.Controllers
                 }
             }
 
-            member.Photos.Remove(photo);
+            cliente.Photos.Remove(photo);
 
-            if (await photoService.SaveAllAsync()) return NoContent();
+            if (await photoService.SaveAllAsync()) 
+                return NoContent();
             return BadRequest("Problem deleting photo");
         }
 
@@ -94,6 +95,12 @@ namespace API.Controllers
         public async Task<ActionResult<Photo>> GetClientFoto(string id)
         {
             return Ok(await photoService.GetClientFoto(id));
+        }
+
+        [HttpGet("{id}/photos")]
+        public async Task<ActionResult<IReadOnlyList<Photo>>> GetClientFotos(string id)
+        {
+            return Ok(await photoService.GetClientFotos(id));
         }
     }
 }

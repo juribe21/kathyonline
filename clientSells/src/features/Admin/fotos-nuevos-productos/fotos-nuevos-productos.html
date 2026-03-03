@@ -1,7 +1,37 @@
-<p>Ver fotos del producto del producto agregado !!!</p>
 <div>
-  <ul class="ml-5">
-    <li>Ver fotos del producto del producto agregado[Eliminar]</li>
-    <li>Eliminar fotos</li>
-  </ul>
+
+  <div class="flex justify-between items-center">
+    <p>Agregar y visualizar fotos del producto agregado !!!</p>
+    <p class="text-pink-400">Hacer Click en  Terminar, para agregar nuevo Producto →</p>
+    <button (click)="terminar()" class="btn btn-primary">
+      Terminar
+    </button>
+  </div>
+
+</div>
+
+<div>
+
+</div>
+
+<div class="flex flex-col h-[95vh]">
+  <div class="mt-3">
+    <div class="flex gap-3 justify-center py-3">
+      <span>Fotos</span>
+    </div>
+    <div class="flex gap-3 justify-center">
+      <div class="flex gap-3 justify-center">
+        <div class="grid grid-cols-5 gap-6">
+          @for (foto of fotos(); track foto.productId) {
+          <!-- <app-client-card [client]="client" /> -->
+          <img src={{foto.url}} alt="" width="100">
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <app-image-upload (uploadFile)="onUploadImafe($event)" [loading]="loading()" />
+  </div>
 </div>

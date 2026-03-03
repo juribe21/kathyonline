@@ -76,8 +76,13 @@ namespace API.Services
                 return null;
             }
             return exist;
-
-
+        }
+        public async Task<IReadOnlyList<Photo>> GetClientFotos(string id)
+        {
+            var fotos = await context.Photos
+                .Where(x => x.ClientId == id)
+                .ToListAsync();
+            return fotos;
         }
     }
 }

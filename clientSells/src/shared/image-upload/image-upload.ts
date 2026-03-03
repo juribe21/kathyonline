@@ -45,6 +45,7 @@ export class ImageUpload {
   onUploadFile() {
     if (this.fileToupdload) {
       this.uploadFile.emit(this.fileToupdload);
+      this.imgSource.set(null);
     }
   }
 

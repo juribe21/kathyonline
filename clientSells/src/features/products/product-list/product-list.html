@@ -1,5 +1,5 @@
 <div class="grid grid-cols-5 gap-6">
-  @for(prod of products$ | async; track prod.id){
-    <app-product-card [product]="prod"/>
+  @for(prod of products(); track prod.id){
+    <app-product-card [product]="prod" (deleteOk)="loadFilteredProducts($event)" />
   }
 </div>

@@ -1,8 +1,16 @@
-<p>Ver listado de pedidos !!!</p>
-<div>
-  <ul class="ml-5">
-    <li>Ver el listado de pedidos [Eliminar]</li>
-    <li>Actualizar si fue entregado</li>
-    <li>Eliminar pedido</li>
-  </ul>
+<div class="flex mb-3">
+  <p class="text-2xl text-pink-400">Ver, Cancelar, Eliminar Pedidos !!!</p>
+</div>
+
+
+<div class=" flex flex-col w-full">
+  <div class="flex justify=between items-center">
+    <div class="tabs tabs-box tabs-lg text-primary w-fit gap-3">
+      @for (tab of tabs; track $index) {
+      <button role="tab" class="tab" [class.tab-active]="predicate === tab.value" (click)="setPredicate(tab.value)">
+        {{tab.label}}
+      </button>
+      }
+    </div>
+  </div>
 </div>

@@ -9,14 +9,16 @@ namespace API.Interfaces
         Task<bool> ValidarExisteProducto(string productId);
         Task<Product> AddProduct (ProductDto productDto);
         void UpdateProduct (ProductDto productDto);
-        Task<bool> DeleteProduct (string id);
+        Task<bool> DeleteProduct (string productId);
         Task<ProductPicture> AddNewProductPicture(IFormFile file, string id);
-        Task<IReadOnlyList<ProductPicture>> GetPhotosProductById (string Id);
+        Task<IReadOnlyList<ProductPicture>> GetPhotosProductById (string productId);
+        Task<IReadOnlyList<Product>> GetProducts();
 
 
         Task<ImageUploadResult> UploadPhotoAsync(IFormFile file, string id);
         Task<DeletionResult> DeletePhotoAsync(string productId);
         Task<DeletionResult> DeletePhotoByIdAsync(string publicId);
+        Task<DeletionResult> DeleteProductPhotoByIdAsync(int id);
 
         Task<bool> ValidateUserAdministrator(string userId);
 
