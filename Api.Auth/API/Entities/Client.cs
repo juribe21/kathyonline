@@ -1,4 +1,5 @@
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -6,7 +7,8 @@ namespace API.Entities;
 
 public class Client
 {
-    public required string Id { get; set; } = Guid.NewGuid().ToString();
+    [Key]
+    public required string Id { get; set; } //= Guid.NewGuid().ToString();
     public required string Name { get; set; }
     public required string LastName { get; set; }
     public required string Email { get; set; }
@@ -28,4 +30,10 @@ public class Client
     [JsonIgnore]
     [ForeignKey(nameof(Id))]
     public AppUser User { get; set; } = null!;
+
+    [JsonIgnore]
+    public List<Pedido> Pedidos { get; set; } = [];
+
+    // [JsonIgnore]
+    // public List<Venta> Ventas { get; set; } = [];
 }

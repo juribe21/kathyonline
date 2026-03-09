@@ -5,10 +5,12 @@ namespace API.DTOs
     public class VentaDto
     {
         public int Id { get; set; }
-        public required int ClientId { get; set; }
-        public required int PuntoEntregaId { get; set; }
+        public required string NombreClient { get; set; }
+        public required string PuntoEntrega { get; set; }
+        public string Productos { get; set; } = null!;
         public DateOnly FechaEntrega { get; set; }        
         public decimal Total { get; set; }
-        public int PedidoId { get; set; }
+        
+        //public int PedidoId { get; set; }
     }
 }

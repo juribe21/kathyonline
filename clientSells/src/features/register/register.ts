@@ -34,7 +34,7 @@ export class Register {
 
   constructor() {
     this.credentialsForm = this.fb.group({
-      email: ['jorge@test.com', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       name: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]],
@@ -93,7 +93,7 @@ export class Register {
       this.accountService.register(formData).subscribe({
         next: (response) => {
           console.log(response);
-          this.router.navigateByUrl('/clients');
+          this.router.navigateByUrl('/joyeria/j');
           this.cancel();
         },
         error: (error) => {

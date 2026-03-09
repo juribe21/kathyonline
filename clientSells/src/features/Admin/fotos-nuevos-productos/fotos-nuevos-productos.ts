@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { ProductService } from '../../../core/services/product-service';
 import { ProductFoto } from '../../products/product-foto/product-foto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fotos-nuevos-productos',
@@ -19,6 +20,7 @@ export class FotosNuevosProductos {
   private productService = inject(ProductService);
   protected loading = signal(false);
   protected adminService = inject(AdminService);
+  private route = inject(Router);
   // protected photo = signal<Photo | undefined>(undefined);
 
   protected fotos = signal<NewProductPhoto[]>([]);
@@ -58,6 +60,7 @@ export class FotosNuevosProductos {
   terminar() {
     localStorage.removeItem('newProductId');
     this.fotos.set([]);
-    this.recargarForma();
+    this.route.navigateByUrl('/adminproducts/addproduct');
+    //this.recargarForma();
   }
 }

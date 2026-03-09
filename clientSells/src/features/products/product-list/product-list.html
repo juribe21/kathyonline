@@ -1,5 +1,10 @@
+@if (products().length > 0) {
 <div class="grid grid-cols-5 gap-6">
   @for(prod of products(); track prod.id){
-    <app-product-card [product]="prod" (deleteOk)="loadFilteredProducts($event)" />
+  <app-product-card [product]="prod" (deleteOk)="loadFilteredProducts($event)" />
   }
 </div>
+}
+@else {
+<div class="text-3xl text-purple-500">No hay productos que Mostrar</div>
+}

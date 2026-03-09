@@ -51,6 +51,8 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserTypeId");
+
                     b.ToTable("AppUsers");
                 });
 
@@ -97,6 +99,9 @@ namespace API.Data.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
+                    b.Property<int?>("GenderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -117,6 +122,8 @@ namespace API.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GenderId");
+
                     b.ToTable("Clients");
                 });
 
@@ -131,11 +138,13 @@ namespace API.Data.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoriaId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoriaId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProductoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("SubTotal")
                         .HasColumnType("decimal(14,2)");
@@ -178,28 +187,43 @@ namespace API.Data.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoriaId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoriaId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateOnly>("FechaEntrega")
+                    b.Property<DateOnly>("FechaPedido")
                         .HasColumnType("date");
 
-                    b.Property<int>("ProductoId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProductoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PuntoEntregaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<decimal>("SubTotal")
                         .HasColumnType("decimal(14,2)");
 
-                    b.Property<int>("TransactionId")
-                        .HasColumnType("int");
+                    b.Property<string>("TransactionId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("PuntoEntregaId");
 
                     b.ToTable("Pedidos");
                 });
@@ -362,8 +386,9 @@ namespace API.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("FechaEntrega")
                         .HasColumnType("date");
@@ -377,6 +402,10 @@ namespace API.Data.Migrations
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(14,2)");
 
+                    b.Property<string>("TrnasactionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PedidoId");
@@ -384,8 +413,21 @@ namespace API.Data.Migrations
                     b.ToTable("Ventas");
                 });
 
+            modelBuilder.Entity("API.Entities.AppUser", b =>
+                {
+                    b.HasOne("API.Entities.UserType", null)
+                        .WithMany("AppUsers")
+                        .HasForeignKey("UserTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("API.Entities.Client", b =>
                 {
+                    b.HasOne("API.Entities.Gender", null)
+                        .WithMany("Clients")
+                        .HasForeignKey("GenderId");
+
                     b.HasOne("API.Entities.AppUser", "User")
                         .WithOne("Client")
                         .HasForeignKey("API.Entities.Client", "Id")
@@ -404,6 +446,25 @@ namespace API.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Venta");
+                });
+
+            modelBuilder.Entity("API.Entities.Pedido", b =>
+                {
+                    b.HasOne("API.Entities.Client", null)
+                        .WithMany("Pedidos")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Product", null)
+                        .WithMany("Pedidos")
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("API.Entities.PuntoEntrega", null)
+                        .WithMany("Pedidos")
+                        .HasForeignKey("PuntoEntregaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -463,7 +524,14 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Client", b =>
                 {
+                    b.Navigation("Pedidos");
+
                     b.Navigation("Photos");
+                });
+
+            modelBuilder.Entity("API.Entities.Gender", b =>
+                {
+                    b.Navigation("Clients");
                 });
 
             modelBuilder.Entity("API.Entities.Pedido", b =>
@@ -473,7 +541,19 @@ namespace API.Data.Migrations
 
             modelBuilder.Entity("API.Entities.Product", b =>
                 {
+                    b.Navigation("Pedidos");
+
                     b.Navigation("ProductPictures");
+                });
+
+            modelBuilder.Entity("API.Entities.PuntoEntrega", b =>
+                {
+                    b.Navigation("Pedidos");
+                });
+
+            modelBuilder.Entity("API.Entities.UserType", b =>
+                {
+                    b.Navigation("AppUsers");
                 });
 
             modelBuilder.Entity("API.Entities.Venta", b =>

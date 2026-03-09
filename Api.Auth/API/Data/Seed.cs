@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using API.DTOs;
 using API.Entities;
+using API.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data;
@@ -33,7 +34,7 @@ public class Seed
                 Email = client.Email,
                 Name = client.Name,
                 ImageUrl = client.ImageUrl,
-                UserTypeId = 1,
+                UserTypeId = (int)EUserTypes.Admin,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("password")),
                 PasswordSalt = hmac.Key,
                 Client = new Client
@@ -43,14 +44,14 @@ public class Seed
                     LastName = client.LastName,
                     Email = client.Email,
                     Telefono = client.Telefono,
-                    Description = client.Description,
-                    DateOfBirth = client.DateOfBirth,
-                    ImageUrl = client.ImageUrl,
                     Gender = client.Gender,
+                    DateOfBirth = client.DateOfBirth,
+                    Created = client.Created,
+                    LastActive = client.LastActive,
+                    Description = client.Description,                                      
                     City = client.City,
                     Country = client.Country,
-                    LastActive = client.LastActive,
-                    Created = client.Created
+                    ImageUrl = client.ImageUrl,
                 }
             };
 

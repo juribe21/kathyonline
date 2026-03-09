@@ -46,6 +46,7 @@ export class AddProduct {
       this.productService.registrarProduct(nuevoProducto).subscribe({
         next: (response) => {
           this.newProduct.set(response);
+          console.log(nuevoProducto);
           if (localStorage.getItem('newProductId') !== null) {
             localStorage.removeItem('newProductId');
             localStorage.setItem('newProductId', this.newProduct()?.id as string);

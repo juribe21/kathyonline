@@ -15,3 +15,13 @@ export type DetalleVenta = {
   cantidad: number;
   subTotal: number;
 };
+
+export type VentaDto = {
+  id: number;
+  nombreClient: string;
+  puntoentrega: string;
+  productos: string;
+  fechaEntrega: string;
+  total: string;
+  status: boolean;
+};

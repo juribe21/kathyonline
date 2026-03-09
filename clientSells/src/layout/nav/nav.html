@@ -27,29 +27,6 @@
       @if (accountService.adminUser()) {
       <!-- <a routerLink="/errors" routerLinkActive="text-accent">Errors</a> -->
 
-      <!-- <div class="dropdown dropdown-center">
-        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 mb-3 cursor-pointer">
-          <a>Entrega</a>
-        </div>
-        <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-45 p-2 shadow-sm">
-          <li><a>Plaza 2000</a></li>
-          <li><a>Parque las Villas</a></li>
-          <li><a>Dax Cucapah</a></li>
-          <li><a>Farmacia Guadalajara</a></li>
-        </ul>
-      </div> -->
-
-      <!-- <div class="dropdown dropdown-center">
-        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 mb-3 cursor-pointer">
-          <a>Categorias</a>
-        </div>
-        <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-38 p-2 shadow-sm">
-          <li><a>Anillos</a></li>
-          <li><a>Pulsera</a></li>
-          <li><a>Cadenas</a></li>
-        </ul>
-      </div> -->
-
       <div class="dropdown dropdown-center">
         <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 mb-3 cursor-pointer">
           <a>Admin</a>
@@ -59,11 +36,6 @@
           <li><a routerLink="/listaproductos">Productos</a></li>
           <li><a routerLink="/adminproducts">Administracion</a></li>
           <li><a routerLink="/sistema">Sistema</a></li>
-
-          <!-- <li><a routerLink="/users">Usuarios</a></li>
-          <li><a routerLink="/admincategorias">Categorias</a></li>
-          <li><a routerLink="/adminentrega">Puntos entrega</a></li> -->
-
         </ul>
       </div>
       }
@@ -96,6 +68,16 @@
         </ul>
       </div>
 
+      <div class="flex items-center mr-5">
+        <a routerLink="carrito">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="size-7">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+          </svg>
+        </a>
+      </div>
+
       <!-- Edit y logout -->
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="flex items-center text-white text-xl gap-3 cursor-pointer">
@@ -104,14 +86,6 @@
         </div>
         <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-40 w-52 p-2 shadow-sm">
           <li><a routerLink="/clientes/{{user.id}}">Mi perfil</a></li>
-          <li><a routerLink="carrito">Carrito
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-              </svg>
-            </a></li>
-
           <li><a (click)="logout()">Logout</a></li>
         </ul>
       </div>
@@ -127,3 +101,27 @@
     </div>
   </div>
 </header>
+
+
+<!-- <div class="dropdown dropdown-center">
+        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 mb-3 cursor-pointer">
+          <a>Entrega</a>
+        </div>
+        <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-45 p-2 shadow-sm">
+          <li><a>Plaza 2000</a></li>
+          <li><a>Parque las Villas</a></li>
+          <li><a>Dax Cucapah</a></li>
+          <li><a>Farmacia Guadalajara</a></li>
+        </ul>
+      </div> -->
+
+<!-- <div class="dropdown dropdown-center">
+        <div tabindex="0" role="button" class="flex items-center text-white text-sm gap-3 mb-3 cursor-pointer">
+          <a>Categorias</a>
+        </div>
+        <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-38 p-2 shadow-sm">
+          <li><a>Anillos</a></li>
+          <li><a>Pulsera</a></li>
+          <li><a>Cadenas</a></li>
+        </ul>
+      </div> -->

@@ -28,5 +28,9 @@ namespace API.Entities
 
         [JsonIgnore]
         public List<ProductPicture> ProductPictures { get; set; } = [];
+
+        [JsonIgnore]
+        public List<Pedido> Pedidos { get; set; } = [];
+
     }
 }

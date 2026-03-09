@@ -9,5 +9,8 @@ namespace API.Entities
         [Key]
         public int Id { get; set; }
         public required string LugarEntrega { get; set; }
+
+        [JsonIgnore]
+        public List<Pedido> Pedidos { get; set; } = [];
     }
 }

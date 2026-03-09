@@ -23,31 +23,35 @@
     <!-- head -->
     <thead>
       <tr>
-        <th></th>
-        <th>Status compra</th>
-        <th>Nombre Cliente</th>
-        <th>Productos</th>
-        <th>Total</th>
+        <th>Status</th>
+        <th>Nombre</th>
+        <th>Cantidad</th>
+        <th>Producto</th>
+        <th>Precio</th>
         <th>Fecha de Compra</th>
         @if(accountService.adminUser()){
         <th class="text-center">Cancelar</th>
+        }
+        @if(!accountService.adminUser()){
+        <th class="text-center">Remover Articulo</th>
         }
 
       </tr>
     </thead>
     <tbody>
-      <!-- row 1 -->
-      <tr>
-        <th>1</th>
-        <td>En tramite</td>
-        <td>Jorge Uribe</td>
-        <td>Esclava, Bata, Anillo, </td>
-        <td>135.25</td>
-        <td>Feb 3 2026</td>
 
+      @for (prod of pedidoCarrito(); track prod.id) {
+      @if (pedidoCarrito().length > 0) {
+      <tr>
+        <td>{{prod.status}}</td>
+        <td>{{prod.nombreCliente}}</td>
+        <td>{{prod.cantidad}}</td>
+        <td>{{prod.nombreProducto}}</td>
+        <td>{{prod.subTotal}}</td>
+        <td>{{prod.fechaPedido}}</td>
         @if(accountService.adminUser()){
         <td class="w-1/9 text-center">
-          <button (click)="deleteCarrito($event, '')" class="btn btn-circle btn-ghost text-error">
+          <button (click)="deleteCarrito($event, prod.id)" class="btn btn-circle btn-ghost text-error">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -56,8 +60,20 @@
         </td>
         }
 
+        @if(!accountService.adminUser()){
+        <td class="w-1/9 text-center">
+          <button (click)="Remover($event, prod)" class="btn btn-circle btn-ghost text-error">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </td>
+        }
 
       </tr>
+      }
+      }
     </tbody>
   </table>
 </div>

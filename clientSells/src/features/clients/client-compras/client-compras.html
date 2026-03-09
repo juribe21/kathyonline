@@ -28,37 +28,28 @@
       </tr>
     </thead>
     <tbody>
-      <!-- row 1 -->
+      @for (venta of ventas(); track venta.id) {
       <tr>
-        <th>1</th>
-        <td>Feb 11 2026</td>
-        <td>Esclava, Bata, Anillo </td>
-        <td>135.25</td>
+        <th>{{venta.id}}</th>
+        <td>{{venta.fechaEntrega}}</td>
+        <td>{{venta.productos}} </td>
+        <td>{{venta.total}}</td>
+        <td class="text-center">{{venta.status? 'OK' : 'No_OK'}}</td>
+        @if (accountService.adminUser()) {
         <td class="w-1/9 text-center">
           <button (click)="deleteCarrito($event, '')" class="btn btn-circle btn-ghost text-success">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
             </svg>
+          </button>
+        </td>
+        }
+      </tr>
 
-          </button>
-        </td>
-      </tr>
-      <!-- row 2 -->
-      <tr>
-        <th>2</th>
-        <td>Feb 3 2026</td>
-        <td>Medalla, Cadena</td>
-        <td>85.25</td>
-        <td class="w-1/9 text-center">
-          <button (click)="deleteCarrito($event, '')" class="btn btn-circle btn-ghost text-error">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </td>
-      </tr>
+      }
+
+
     </tbody>
   </table>
 </div>

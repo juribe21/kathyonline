@@ -9,20 +9,21 @@ namespace API.Entities
         [Key]
         [Required]
         public int Id { get; set; }
-        public required int ClientId { get; set; }
+        public string ClientId { get; set; } = null!;
         public required int PuntoEntregaId { get; set; }
         public DateOnly FechaEntrega { get; set; }
 
         [Column(TypeName = "decimal(14,2)")]
         public decimal Total { get; set; }
-        public int PedidoId { get; set; }
+       
+        public string TrnasactionId { get; set; } = null!;
 
         [JsonIgnore] // 1:N hacia DetalleVentas
         public List<DetalleVenta> DetalleVentas { get; set; } = [];
 
         [JsonIgnore]
-        public Pedido Pedido { get; set; } = null!;        
-
+        public Pedido Pedido { get; set; } = null!;
+        public int? PedidoId { get; set; }
 
     }
 }

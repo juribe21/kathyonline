@@ -22,7 +22,9 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
-builder.Services.AddScoped<IProductAdminRepository,  ProductAdminRepository>();
+builder.Services.AddScoped<IProductAdminRepository, ProductAdminRepository>();
+builder.Services.AddScoped<IPedidosRepository, PedidodRepository>();
+builder.Services.AddScoped<IVentasRepository, VentasRepository>();
 
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
